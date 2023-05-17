@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+          background-image: url('/To_Do_App/to-do-list-apps.png');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+        }
+        </style>
+  <title>To-Do Application</title>
+  <style>
+    .task-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .task-text {
+      flex: 1;
+    }
+    .completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do Application</h1>
+  
+  <div>
+    <div class="task-container">
+      <input type="text" id="task1" placeholder="Type New Task"/>
+      <button onclick="addTask()">Add</button>
+    </div>
+    
+    <div class="task-container">
+      <input type="checkbox" id="task1Checkbox" onclick="toggleComplete(1)"/>
+      <input type="text" id="task2" readonly/>
+      <button onclick="deleteTask(2)">Delete</button>
+    </div>
+    
+    <div class="task-container">
+      <input type="checkbox" id="task2Checkbox" onclick="toggleComplete(2)"/>
+      <input type="text" id="task3" readonly/>
+      <button onclick="deleteTask(3)">Delete</button>
+    </div>
+    
+    <div class="task-container">
+      <input type="checkbox" id="task3Checkbox" onclick="toggleComplete(3)"/>
+      <input type="text" id="task4" readonly/>
+      <button onclick="deleteTask(4)">Delete</button>
+    </div>
+  </div>
+  
+  <script>
+    function addTask() {
+      const task1Input = document.getElementById('task1');
+      const task2Input = document.getElementById('task2');
+      const task3Input = document.getElementById('task3');
+      const task4Input = document.getElementById('task4');
+      
+      if (task2Input.value === '') {
+        task2Input.value = task1Input.value;
+        task1Input.value = '';
+        task2Input.readOnly = false;
+      } else if (task3Input.value === '') {
+        task3Input.value = task1Input.value;
+        task1Input.value = '';
+        task3Input.readOnly = false;
+      } else if (task4Input.value === '') {
+        task4Input.value = task1Input.value;
+        task1Input.value = '';
+        task4Input.readOnly = false;
+      }
+    }
+    
+    function toggleComplete(taskNumber) {
+      const checkbox = document.getElementById('task' + taskNumber + 'Checkbox');
+      const taskInput = document.getElementById('task' + (taskNumber + 1));
+      
+      if (checkbox.checked) {
+        taskInput.classList.add('completed');
+      } else {
+        taskInput.classList.remove('completed');
+      }
+    }
+    
+    function deleteTask(taskNumber) {
+      const taskInput = document.getElementById('task' + taskNumber);
+      taskInput.value = '';
+      taskInput.readOnly = true;
+      taskInput.classList.remove('completed');
+      
+      const checkbox = document.getElementById('task' + taskNumber + 'Checkbox');
+      checkbox.checked = false;
+    }
+  </script>
+</body>
+</html>
